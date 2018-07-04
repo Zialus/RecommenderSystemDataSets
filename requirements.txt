@@ -1,4 +1,3 @@
-os
 six
 numpy
 scipy
