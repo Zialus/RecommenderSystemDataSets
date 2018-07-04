@@ -3,9 +3,9 @@ dist: xenial
 sudo: false
 
 script:
-  - python --version
-  - python ml10M/prepare_ml10M_data.py
-  - python ml20M/prepare_ml20M_data.py
+  - ipython --version
+  - ipython ml10M/prepare_ml10M_data.py
+  - ipython ml20M/prepare_ml20M_data.py
 
 matrix:
   include:
