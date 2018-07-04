@@ -94,13 +94,12 @@ assert np.max(train_item) == n
 # In[ ]:
 
 
-# 1-based to 0-based
-R_test_coo = sparse.coo_matrix((test_rating, (test_user - 1, test_item - 1)))
+R_test_coo = sparse.coo_matrix((test_rating, (test_user, test_item)))
 assert R_test_coo.nnz == nnz_test
 
 outfile_test = open("test.txt", 'w')
 for i in range(nnz_test):
-    outfile_test.write(str(test_user[i] - 1) + " " + str(test_item[i] - 1) + " " + str(test_rating[i]) + "\n")
+    outfile_test.write(str(test_user[i]) + " " + str(test_item[i]) + " " + str(test_rating[i]) + "\n")
 
 
 # In[ ]:
@@ -132,13 +131,12 @@ print(test_col)
 # In[ ]:
 
 
-# 1-based to 0-based
-R_train_coo = sparse.coo_matrix((train_rating, (train_user - 1, train_item - 1)))
+R_train_coo = sparse.coo_matrix((train_rating, (train_user, train_item)))
 assert R_train_coo.nnz == nnz_train
 
 outfile_train = open("train.txt", 'w')
 for i in range(nnz_train):
-    outfile_train.write(str(train_user[i] - 1) + " " + str(train_item[i] - 1) + " " + str(train_rating[i]) + "\n")
+    outfile_train.write(str(train_user[i]) + " " + str(train_item[i]) + " " + str(train_rating[i]) + "\n")
 
 
 # In[ ]:
@@ -223,5 +221,16 @@ R_train_csc.indptr.bin
 R_train_csc.indices.bin
 R_train_csc.data.bin
 """)
+outfile_meta.write(str(nnz_test) + " " + "test.txt\n")
+
+
+# In[ ]:
+
+
+print("writing extra meta file")
+
+outfile_meta = open("meta", 'w')
+outfile_meta.write(str(m) + " " + str(n) + "\n")
+outfile_meta.write(str(nnz_train) + " " + "train.txt\n")
 outfile_meta.write(str(nnz_test) + " " + "test.txt\n")
 

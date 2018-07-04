@@ -168,7 +168,7 @@ for i in range(nnz_train):
     outfile_train.write(str((user_item_train[i, 0])) + " " + str((user_item_train[i, 1])) + " " + str(rating_train[i]) + "\n")
 
 
-# In[12]:
+# In[ ]:
 
 
 # for training data, we need COO format to calculate training RMSE
@@ -196,7 +196,7 @@ train_csc = np.fromfile('R_train_csc.data.bin', dtype=np.float32)
 train_csr = np.fromfile('R_train_csr.data.bin', dtype=np.float32)
 
 
-# In[13]:
+# In[ ]:
 
 
 print(np.max(R_train_coo.data))
@@ -233,7 +233,7 @@ print(np.unique(item).size)
 print(np.unique(R_train_coo.col).size)
 
 
-# In[14]:
+# In[ ]:
 
 
 print("writing extra meta_modified_all file")
@@ -253,13 +253,13 @@ R_train_csc.data.bin
 outfile_meta.write(str(nnz_test) + " " + "test.txt\n")
 
 
-# In[15]:
+# In[ ]:
 
 
 print("writing extra meta file")
 
 outfile_meta = open("meta", 'w')
-outfile_meta.write(str(m) + " " + str(n) + "\n" + str(nnz_train) + "\n")
+outfile_meta.write(str(m) + " " + str(n) + "\n")
 outfile_meta.write(str(nnz_train) + " " + "train.txt\n")
 outfile_meta.write(str(nnz_test) + " " + "test.txt\n")
 

@@ -259,7 +259,7 @@ outfile_meta.write(str(nnz_test) + " " + "test.txt\n")
 print("writing extra meta file")
 
 outfile_meta = open("meta", 'w')
-outfile_meta.write(str(m) + " " + str(n) + "\n" + str(nnz_train) + "\n")
+outfile_meta.write(str(m) + " " + str(n) + "\n")
 outfile_meta.write(str(nnz_train) + " " + "train.txt\n")
 outfile_meta.write(str(nnz_test) + " " + "test.txt\n")
 
