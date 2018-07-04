@@ -6,6 +6,10 @@ script:
   - ipython --version
   - ipython ml10M/prepare_ml10M_data.py
   - ipython ml20M/prepare_ml20M_data.py
+  - cat ml10M/meta
+  - cat ml10M/meta_modified_all
+  - cat ml20M/meta
+  - cat ml20M/meta_modified_all
 
 matrix:
   include:

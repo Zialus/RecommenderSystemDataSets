@@ -97,19 +97,21 @@ assert user.size == nnz_train + nnz_test
 
 user_item = np.vstack((user, item))
 
-user_item_train, user_item_test, rating_train, rating_test = train_test_split(user_item.T, rating, test_size=2000027, random_state=42)
+user_item_train, user_item_test, rating_train, rating_test = train_test_split(user_item.T,
+                                                                              rating,
+                                                                              test_size=nnz_test,
+                                                                              random_state=42)
 
 
 # In[7]:
 
 
-# 1-based to 0-based
-R_test_coo = sparse.coo_matrix((rating_test, (user_item_test[:, 0] - 1, user_item_test[:, 1] - 1)))
+R_test_coo = sparse.coo_matrix((rating_test, (user_item_test[:, 0], user_item_test[:, 1])))
 assert R_test_coo.nnz == nnz_test
 
 outfile_test = open("test.txt", 'w')
 for i in range(nnz_test):
-    outfile_test.write(str((user_item_test[i, 0] - 1)) + " " + str((user_item_test[i, 1] - 1)) + " " + str(rating_test[i]) + "\n")
+    outfile_test.write(str((user_item_test[i, 0])) + " " + str((user_item_test[i, 1])) + " " + str(rating_test[i]) + "\n")
 
 
 # In[8]:
@@ -158,16 +160,15 @@ print(np.unique(R_test_coo.col).size)
 # In[11]:
 
 
-# 1-based to 0-based
-R_train_coo = sparse.coo_matrix((rating_train, (user_item_train[:, 0] - 1, user_item_train[:, 1] - 1)))
+R_train_coo = sparse.coo_matrix((rating_train, (user_item_train[:, 0], user_item_train[:, 1])))
 assert R_train_coo.nnz == nnz_train
 
 outfile_train = open("train.txt", 'w')
 for i in range(nnz_train):
-    outfile_train.write(str((user_item_train[i, 0] - 1)) + " " + str((user_item_train[i, 1] - 1)) + " " + str(rating_train[i]) + "\n")
+    outfile_train.write(str((user_item_train[i, 0])) + " " + str((user_item_train[i, 1])) + " " + str(rating_train[i]) + "\n")
 
 
-# In[ ]:
+# In[12]:
 
 
 # for training data, we need COO format to calculate training RMSE
@@ -195,7 +196,7 @@ train_csc = np.fromfile('R_train_csc.data.bin', dtype=np.float32)
 train_csr = np.fromfile('R_train_csr.data.bin', dtype=np.float32)
 
 
-# In[ ]:
+# In[13]:
 
 
 print(np.max(R_train_coo.data))
@@ -232,13 +233,13 @@ print(np.unique(item).size)
 print(np.unique(R_train_coo.col).size)
 
 
-# In[ ]:
+# In[14]:
 
 
-print("write extra meta file")
+print("writing extra meta_modified_all file")
 
 outfile_meta = open("meta_modified_all", 'w')
-outfile_meta.write(str(m) + "" + str(n) + "\n" + str(nnz_train) + "\n")
+outfile_meta.write(str(m) + " " + str(n) + "\n" + str(nnz_train) + "\n")
 outfile_meta.write("""R_train_coo.data.bin
 R_train_coo.row.bin
 R_train_coo.col.bin
@@ -249,5 +250,16 @@ R_train_csc.indptr.bin
 R_train_csc.indices.bin
 R_train_csc.data.bin
 """)
-outfile_meta.write(str(nnz_test) + "" + "test.txt\n")
+outfile_meta.write(str(nnz_test) + " " + "test.txt\n")
+
+
+# In[15]:
+
+
+print("writing extra meta file")
+
+outfile_meta = open("meta", 'w')
+outfile_meta.write(str(m) + " " + str(n) + "\n" + str(nnz_train) + "\n")
+outfile_meta.write(str(nnz_train) + " " + "train.txt\n")
+outfile_meta.write(str(nnz_test) + " " + "test.txt\n")
 
