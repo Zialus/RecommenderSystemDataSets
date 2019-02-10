@@ -7,13 +7,14 @@ python:
 
 script:
   - ipython --version
+  - jupyter --version
   - cd ml10M/
-  - ipython prepare_ml10M_data.py
+  - jupyter nbconvert --ExecutePreprocessor.timeout=600 --to notebook --execute prepare_ml10M_data.ipynb
   - cat meta
   - cat meta_modified_all
   - cd ..
   - cd ml20M/
-  - ipython prepare_ml20M_data.py
+  - jupyter nbconvert --ExecutePreprocessor.timeout=600 --to notebook --execute prepare_ml20M_data.ipynb
   - cat meta
   - cat meta_modified_all
   - cd ..
