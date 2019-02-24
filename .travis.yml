@@ -18,3 +18,8 @@ script:
   - cat meta
   - cat meta_modified_all
   - cd ..
+  - cd jester/
+  - jupyter nbconvert --ExecutePreprocessor.timeout=600 --to notebook --execute prepare_jester_data.ipynb
+  - cat meta
+  - cat meta_modified_all
+  - cd ..
