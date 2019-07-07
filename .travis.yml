@@ -9,17 +9,27 @@ script:
   - ipython --version
   - jupyter --version
   - cd ml10M/
-  - jupyter nbconvert --ExecutePreprocessor.timeout=600 --to notebook --execute prepare_ml10M_data.ipynb
+  - papermill prepare_ml10M_data.ipynb prepare_ml10M_data-out.ipynb
+  - cat meta
+  - cat meta_modified_all
+  - cd ..
+  - cd no_gaps_ml10/
+  - papermill prepare_ml10M_data.ipynb prepare_ml10M_data-out.ipynb
   - cat meta
   - cat meta_modified_all
   - cd ..
   - cd ml20M/
-  - jupyter nbconvert --ExecutePreprocessor.timeout=600 --to notebook --execute prepare_ml20M_data.ipynb
+  - papermill prepare_ml20M_data.ipynb prepare_ml20M_data-out.ipynb
   - cat meta
   - cat meta_modified_all
   - cd ..
+  - cd no_gaps_ml20/
+  - papermill prepare_ml20M_data.ipynb prepare_ml20M_data-out.ipynb
+  - cat meta
+  - cat meta_modified_all
+  - cd ..  
   - cd jester/
-  - jupyter nbconvert --ExecutePreprocessor.timeout=600 --to notebook --execute prepare_jester_data.ipynb
+  - papermill prepare_jester_data.ipynb prepare_jester_data-out.ipynb
   - cat meta
   - cat meta_modified_all
   - cd ..
